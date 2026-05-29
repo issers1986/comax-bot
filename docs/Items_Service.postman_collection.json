@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "02bf481d-2b3e-4698-a751-6f95c6dd924b",
+		"name": "Items_Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Set_ItemDetails",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "text"
+					},
+					{
+						"key": "SOAPAction",
+						"value": "http://ws.comax.co.il/Comax_WebServices/Set_ItemDetails",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <Set_ItemDetails xmlns=\"http://localhost:51555/Comax_WS/\">\r\n      <ItemDetails>\r\n        <Name>בבנננה</Name>\r\n        <Size></Size>\r\n        <ID>61</ID>\r\n        <OldID></OldID>\r\n        <Barcode>61</Barcode>\r\n        <PurchasingAccountID></PurchasingAccountID>\r\n        <SalesAccountID></SalesAccountID>\r\n        <AlternateID></AlternateID>\r\n        <WorkByAlternateID></WorkByAlternateID>\r\n        <SerialNo></SerialNo>\r\n        <Price></Price>\r\n        <Quantity></Quantity>\r\n        <DiscountPercent></DiscountPercent>\r\n        <DiscountTotal></DiscountTotal>\r\n        <TotalSum></TotalSum>\r\n        <MaxQuantityInOrder></MaxQuantityInOrder>\r\n        <CorrectionPrice></CorrectionPrice>\r\n        <CorrectionDiscountPercent></CorrectionDiscountPercent>        \r\n      </ItemDetails>\r\n      <LoginID>aaa</LoginID>\r\n      <LoginPassword>aaa</LoginPassword>    \r\n    </Set_ItemDetails>\r\n  </soap:Body>\r\n</soap:Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:51555/Comax_WS/Items_Service.asmx",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "51555",
+					"path": [
+						"Comax_WS",
+						"Items_Service.asmx"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllItemsDetailsAllStores",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "POST /Comax_WebServices/Items_Service.asmx HTTP/1.1\r\nHost: ws.comax.co.il\r\nContent-Type: text/xml; charset=utf-8\r\nContent-Length: length\r\nSOAPAction: \"http://ws.comax.co.il/Comax_WebServices/GetAllItemsDetailsAllStores\"\r\n\r\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <GetAllItemsDetailsAllStores xmlns=\"http://ws.comax.co.il/Comax_WebServices/\">\r\n      <LoginID>string</LoginID>\r\n      <LoginPassword>string</LoginPassword>\r\n    </GetAllItemsDetailsAllStores>\r\n  </soap:Body>\r\n</soap:Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:51555/Comax_WS/Items_Service.asmx",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "51555",
+					"path": [
+						"Comax_WS",
+						"Items_Service.asmx"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_AllItemsDetailsByFile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <Get_AllItemsDetailsByFileAllParams xmlns=\"http://ws.comax.co.il/Comax_WebServices/\">\r\n      <ItemID>1</ItemID>      \r\n      <LoginID>aaa</LoginID>\r\n      <LoginPassword>aaa</LoginPassword>\r\n    </Get_AllItemsDetailsByFileAllParams>\r\n  </soap:Body>\r\n</soap:Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:63726/Comax_WS/Items_Service.asmx",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "63726",
+					"path": [
+						"Comax_WS",
+						"Items_Service.asmx"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_TransferDocument",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <Get_UnconfirmedDocuments xmlns=\"http://tempuri.org/\">\r\n      <FromDate>string</FromDate>\r\n      <ToDate>string</ToDate>\r\n      <FromDateUpdate>string</FromDateUpdate>\r\n      <ToDateUpdate>string</ToDateUpdate>\r\n      <SourceStore>string</SourceStore>\r\n      <TargetStore>string</TargetStore>\r\n      <LoginID>string</LoginID>\r\n      <LoginPassword>string</LoginPassword>\r\n    </Get_UnconfirmedDocuments>\r\n  </soap:Body>\r\n</soap:Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ws-rami.comax.co.il/TransferDocument.asmx?op=Get_UnconfirmedDocuments",
+					"protocol": "https",
+					"host": [
+						"ws-rami",
+						"comax",
+						"co",
+						"il"
+					],
+					"path": [
+						"TransferDocument.asmx"
+					],
+					"query": [
+						{
+							"key": "op",
+							"value": "Get_UnconfirmedDocuments"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_AllItemsBalanceByFile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml ",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Charset",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<string xmlns=\"http://ws.comax.co.il/Comax_WebServices/\"></string>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:63726/Items_Service.asmx/Get_AllItemsBalanceByFile?ItemID=6&DepartmentID=string&GroupID=string&Sub_GroupID=string&ItemModelID=string&ItemColorID=string&ItemSizeID=string&StoreID=1&PriceListID=string&StoreIDForOpenOrdersOffset=string&SupplierID=string&CustomerID=string&LastUpdatedFromDate=string&LoginID=aaa&LoginPassword=aaa&ChangesAfter=string&CheckDaysToSell=true\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "63726",
+					"path": [
+						"Items_Service.asmx",
+						"Get_AllItemsBalanceByFile"
+					],
+					"query": [
+						{
+							"key": "ItemID",
+							"value": "6"
+						},
+						{
+							"key": "DepartmentID",
+							"value": "string"
+						},
+						{
+							"key": "GroupID",
+							"value": "string"
+						},
+						{
+							"key": "Sub_GroupID",
+							"value": "string"
+						},
+						{
+							"key": "ItemModelID",
+							"value": "string"
+						},
+						{
+							"key": "ItemColorID",
+							"value": "string"
+						},
+						{
+							"key": "ItemSizeID",
+							"value": "string"
+						},
+						{
+							"key": "StoreID",
+							"value": "1"
+						},
+						{
+							"key": "PriceListID",
+							"value": "string"
+						},
+						{
+							"key": "StoreIDForOpenOrdersOffset",
+							"value": "string"
+						},
+						{
+							"key": "SupplierID",
+							"value": "string"
+						},
+						{
+							"key": "CustomerID",
+							"value": "string"
+						},
+						{
+							"key": "LastUpdatedFromDate",
+							"value": "string"
+						},
+						{
+							"key": "LoginID",
+							"value": "aaa"
+						},
+						{
+							"key": "LoginPassword",
+							"value": "aaa"
+						},
+						{
+							"key": "ChangesAfter",
+							"value": "string"
+						},
+						{
+							"key": "CheckDaysToSell",
+							"value": "true\n"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

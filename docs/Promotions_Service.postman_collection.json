@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "d100c24c-bea5-4152-a21a-45168959e56a",
+		"name": "Promotions_Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "19715351"
+	},
+	"item": [
+		{
+			"name": "GetPromotionsDef JSON",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Params\":\"{'LastUpdatedDate':'01/02/2021','JustActive':true,'StoreList':'31','TypesList':'1,5,6'}\",\r\n    \"LoginID\":\"SUPER123\",\r\n    \"LoginPassword\":\"SAPIR932\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://ws.comax.co.il/Comax_WebServices/Promotions_Service.asmx/GetPromotionsDef"
+			},
+			"response": []
+		},
+		{
+			"name": "GetPromotions",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <GetPromotions xmlns=\"http://ws.comax.co.il/Comax_WebServices/\">\r\n      <StoreID>112</StoreID>\r\n      <TypesList>1</TypesList>\r\n      <JustActive></JustActive>\r\n      <LastUpdatedDate>04/07/2022</LastUpdatedDate>\r\n      <LoginID>go852</LoginID>\r\n      <LoginPassword>852go</LoginPassword>\r\n    </GetPromotions>\r\n  </soap:Body>\r\n</soap:Envelope>"
+				},
+				"url": {
+					"raw": "http://ws.comax.co.il/Comax_WebServices/Promotions_Service.asmx?TotalForActivate=100",
+					"protocol": "http",
+					"host": [
+						"ws",
+						"comax",
+						"co",
+						"il"
+					],
+					"path": [
+						"Comax_WebServices",
+						"Promotions_Service.asmx"
+					],
+					"query": [
+						{
+							"key": "TotalForActivate",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

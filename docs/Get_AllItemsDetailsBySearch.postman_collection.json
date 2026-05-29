@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "657ae7ce-f73e-4478-bc51-67d410829e8b",
+		"name": "Get_AllItemsDetailsBySearch",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "24438734"
+	},
+	"item": [
+		{
+			"name": "Get_AllItemsDetailsBySearch",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Host",
+						"value": "ws.comax.co.il",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "400",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "ItemID",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "DepartmentID",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "GroupID",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "Sub_GroupID",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "ItemModelID",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "ItemColorID",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "ItemSizeID",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "StoreID",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "PriceListID",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "StoreIDForOpenOrdersOffset",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "SupplierID",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "CustomerID",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "LastUpdatedFromDate",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "LoginID",
+							"value": "aaa",
+							"type": "text"
+						},
+						{
+							"key": "LoginPassword",
+							"value": "aaa",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://ws.comax.co.il/Comax_WebServices/Items_Service.asmx/Get_AllItemsDetailsBySearch"
+			},
+			"response": []
+		}
+	]
+}

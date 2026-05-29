@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "b8d22718-56cc-407d-9a46-22bc1f33d6cd",
+		"name": "GetSales - פתקיות",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "19715351"
+	},
+	"item": [
+		{
+			"name": "GetSales_Simple חמק GET",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <GetSales_Simple xmlns=\"http://ws.comax.co.il/Comax_WebServices/\">\r\n      <FromDate>04/03/2022</FromDate>\r\n      <ToDate>09/03/2022</ToDate>\r\n      <StoreID>29</StoreID>\r\n      <DepartmentID></DepartmentID>\r\n      <AgentID></AgentID>\r\n      <ItemID></ItemID>\r\n      <SupplierID></SupplierID>\r\n      <Attribute1Code></Attribute1Code>\r\n      <Attribute2Code></Attribute2Code>\r\n      <Attribute3Code></Attribute3Code>\r\n      <GroupByDate></GroupByDate>\r\n      <GroupByMonth></GroupByMonth>\r\n      <GroupBySubGroup></GroupBySubGroup>\r\n      <GroupByGroup></GroupByGroup>\r\n      <GroupByStore></GroupByStore>\r\n      <GroupByPrt></GroupByPrt>\r\n      <LoginID>Bna@Api</LoginID>\r\n      <LoginPassword>Api@Bna</LoginPassword>\r\n    </GetSales_Simple>\r\n  </soap:Body>\r\n</soap:Envelope>"
+				},
+				"url": "http://ws.comax.co.il/Comax_WebServices/Sales_Service.asmx"
+			},
+			"response": []
+		},
+		{
+			"name": "GetSales_Receipts_Plus GET פתקיות",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <GetSales_Receipts_Plus xmlns=\"http://ws.comax.co.il/Comax_WebServices/\">\r\n      <FromDate>13/04/2022</FromDate>\r\n      <ToDate>13/04/2022</ToDate>\r\n      <StoreID>151</StoreID>\r\n      <DepartmentID></DepartmentID>\r\n      <AgentID></AgentID>\r\n      <ItemID></ItemID>\r\n      <SupplierID></SupplierID>\r\n      <Attribute1Code></Attribute1Code>\r\n      <Attribute2Code></Attribute2Code>\r\n      <Attribute3Code></Attribute3Code>\r\n      <GroupByDate></GroupByDate>\r\n      <GroupByMonth></GroupByMonth>\r\n      <GroupBySubGroup></GroupBySubGroup>\r\n      <GroupByGroup></GroupByGroup>\r\n      <GroupByStore></GroupByStore>\r\n      <GroupByPrt></GroupByPrt>\r\n      <LoginID>good12</LoginID>\r\n      <LoginPassword>good21</LoginPassword>\r\n      <PrtNotExpendable></PrtNotExpendable>\r\n      <NoCmtMinus></NoCmtMinus>\r\n      <NoCmtPlus></NoCmtPlus>\r\n      <NoScmMinus></NoScmMinus>\r\n      <NoScmPlus></NoScmPlus>\r\n      <PrtNotMlay></PrtNotMlay>\r\n      <ByLastDoc></ByLastDoc>\r\n      <FromHour></FromHour>\r\n      <GroupByDoc></GroupByDoc>\r\n      <GroupByDepartmentID></GroupByDepartmentID>\r\n      <GroupBySupplierID></GroupBySupplierID>\r\n      <GroupByAttribute1Code></GroupByAttribute1Code>\r\n      <GroupByAttribute2Code></GroupByAttribute2Code>\r\n      <GroupByAttribute3Code></GroupByAttribute3Code>\r\n      <GroupByYear></GroupByYear>\r\n      <DownInZipFile></DownInZipFile>\r\n      <FileDataType>json</FileDataType>\r\n    </GetSales_Receipts_Plus>\r\n  </soap:Body>\r\n</soap:Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": "http://ws.comax.co.il/Comax_WebServices/Sales_Service.asmx"
+			},
+			"response": []
+		},
+		{
+			"name": "GetSales_Simple_Plus GETחמק",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <GetSales_Simple_Plus xmlns=\"http://ws.comax.co.il/Comax_WebServices/\">\r\n      <FromDate>13/04/2022</FromDate>\r\n      <ToDate>13/04/2022</ToDate>\r\n      <StoreID>151</StoreID>\r\n      <DepartmentID></DepartmentID>\r\n      <AgentID></AgentID>\r\n      <ItemID></ItemID>\r\n      <SupplierID></SupplierID>\r\n      <Attribute1Code></Attribute1Code>\r\n      <Attribute2Code></Attribute2Code>\r\n      <Attribute3Code></Attribute3Code>\r\n      <GroupByDate></GroupByDate>\r\n      <GroupByMonth></GroupByMonth>\r\n      <GroupBySubGroup></GroupBySubGroup>\r\n      <GroupByGroup></GroupByGroup>\r\n      <GroupByStore></GroupByStore>\r\n      <GroupByPrt></GroupByPrt>\r\n      <LoginID>good12</LoginID>\r\n      <LoginPassword>good21</LoginPassword>\r\n      <PrtNotExpendable></PrtNotExpendable>\r\n      <NoCmtMinus></NoCmtMinus>\r\n      <NoCmtPlus></NoCmtPlus>\r\n      <NoScmMinus></NoScmMinus>\r\n      <NoScmPlus></NoScmPlus>\r\n      <PrtNotMlay></PrtNotMlay>\r\n      <ByLastDoc></ByLastDoc>\r\n      <FromHour></FromHour>\r\n      <GroupByDoc></GroupByDoc>\r\n      <DownInZipFile></DownInZipFile>\r\n      <FileDataType></FileDataType>\r\n    </GetSales_Simple_Plus>\r\n  </soap:Body>\r\n</soap:Envelope>"
+				},
+				"url": "http://ws.comax.co.il/Comax_WebServices/Sales_Service.asmx"
+			},
+			"response": []
+		}
+	]
+}

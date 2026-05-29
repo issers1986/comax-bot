@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "2e1a1e11-65ee-4b03-9c54-fa28f2c446bd",
+		"name": "WriteCustomersOrderByParamsExtendedPlusPrice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://ws.comax.co.il/Comax_WebServices/CustomersOrders_Service.asmx/WriteCustomersOrderByParamsExtendedPlusPrice",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "SOAPAction",
+						"value": "http://ws.comax.co.il/Comax_WebServices/WriteCustomersOrderByParamsExtended",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"CustomerID\" : \"840\",\n    \"Items\":[\"1234567899617\",\"1234567899617\"],\n    \"Quantity\":[\"1\",\"2\"],\n    \"Price\":[\"12\",\"10\"],\n    \"StoreID\":\"555\",\n    \"DateDoc\":\"09/05/2021\",\n    \"Reference\":\"32112332\",\n    \"Details\":\"test\",\n    \"Remarks\":\"test\",\n    \"PriceListID\":\"\",\n    \"DoJ5\":\"false\",\n    \"Mode\":\"ADD\",\n    \"DocNumber\":\"\",\n    \"CustomerName\":\"\",\n    \"CustomerAddress\":\"\",\n    \"CustomerCity\":\"\",\n    \"CustomerPhone\":\"\",\n    \"CustomerZip\":\"\",\n    \"Status\":\"\",\n    \"AgentID\":\"\",\n    \"DeliveryDate\":\"\",\n    \"DeliveryHourFrom\":\"\",\n    \"DeliveryHourTo\":\"\",\n    \"DeliveryAddress\":\"\",\n    \"DeliveryAddressNumber\":\"\",\n    \"DeliveryCity\":\"\",\n    \"DeliveryZip\":\"\",\n    \"DeliveryContactMan\":\"\",\n    \"DeliveryRemark\":\"\",\n    \"DeliveryFloor\":\"\",\n    \"DeliveryFlat\":\"\",\n    \"DeliveryTelephone\":\"\",\n    \"DeliveryTelephone2\":\"\",\n    \"DeliveryEmail\":\"\",\n    \"DeliveryType\":\"\",\n    \"PayType\":\"\",\n    \"CreditPaysNumber\":\"\",\n    \"CreditCompany\":\"\",\n    \"CreditTransactionType\":\"\",\n    \"CreditExpireDate\":\"\",\n    \"CreditCardNumber\":\"\",\n    \"CreditCVV\":\"\",\n    \"CreditTZ\":\"\",\n    \"Bank\":\"\",\n    \"BankBranch\":\"\",\n    \"BankAccount\":\"\",\n    \"CheckNumber\":\"\",\n    \"CheckDate\":\"\",\n    \"LoginID\":\"aaa\",\n    \"LoginPassword\":\"aaa\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ws.comax.co.il/Comax_WebServices/CustomersOrders_Service.asmx/WriteCustomersOrderByParamsExtended",
+					"protocol": "http",
+					"host": [
+						"ws",
+						"comax",
+						"co",
+						"il"
+					],
+					"path": [
+						"Comax_WebServices",
+						"CustomersOrders_Service.asmx",
+						"WriteCustomersOrderByParamsExtended"
+					],
+					"query": [
+						{
+							"key": "ExpirationDate ",
+							"value": "111",
+							"disabled": true
+						}
+					]
+				},
+				"description": "652"
+			},
+			"response": []
+		}
+	]
+}
