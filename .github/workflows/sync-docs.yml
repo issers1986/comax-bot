@@ -14,7 +14,7 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      - run: pip install python-docx requests PyPDF2
+      - run: pip install python-docx requests PyPDF2 pymupdf
       - name: Sync docs
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
