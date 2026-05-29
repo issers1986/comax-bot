@@ -25,7 +25,6 @@ def read(f):
     try:
         if n.endswith('.docx') or n.endswith('.doc'):
             from docx import Document
-            import io
             doc = Document(f)
             text = chr(10).join(p.text for p in doc.paragraphs if p.text.strip())
             img_urls = []
@@ -43,10 +42,34 @@ def read(f):
             if img_urls:
                 text += chr(10) + chr(10) + 'תמונות:' + chr(10) + chr(10).join(img_urls)
             return text
+
         if n.endswith('.pdf'):
-            import PyPDF2
-            with open(f, 'rb') as fp:
-                return chr(10).join(p.extract_text() or '' for p in PyPDF2.PdfReader(fp).pages)
+            import PyPDF2, fitz
+            text = ''
+            img_urls = []
+            try:
+                pdf = fitz.open(f)
+                for page_num, page in enumerate(pdf):
+                    text += page.get_text() + chr(10)
+                    for img_idx, img in enumerate(page.get_images()):
+                        try:
+                            xref = img[0]
+                            base_img = pdf.extract_image(xref)
+                            img_bytes = base_img['image']
+                            ext = base_img['ext']
+                            img_name = f.stem + '_p' + str(page_num) + '_' + str(img_idx) + '.' + ext
+                            url = upload_image(img_bytes, img_name, 'image/' + ext)
+                            if url:
+                                img_urls.append(url)
+                                print('  image:', img_name)
+                        except: pass
+            except:
+                with open(f, 'rb') as fp:
+                    text = chr(10).join(p.extract_text() or '' for p in PyPDF2.PdfReader(fp).pages)
+            if img_urls:
+                text += chr(10) + chr(10) + 'תמונות:' + chr(10) + chr(10).join(img_urls)
+            return text
+
         if n.endswith(('.txt', '.md', '.json')):
             return f.read_text(encoding='utf-8', errors='ignore')
     except Exception as e:
