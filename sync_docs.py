@@ -10,12 +10,39 @@ H = {
     'Prefer': 'resolution=merge-duplicates'
 }
 
+def upload_image(img_bytes, filename, mime='image/png'):
+    r = requests.post(
+        SB_URL + '/storage/v1/object/doc-images/' + filename,
+        headers={'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': mime, 'x-upsert': 'true'},
+        data=img_bytes
+    )
+    if r.status_code in (200, 201):
+        return SB_URL + '/storage/v1/object/public/doc-images/' + filename
+    return None
+
 def read(f):
     n = f.name.lower()
     try:
         if n.endswith('.docx') or n.endswith('.doc'):
             from docx import Document
-            return chr(10).join(p.text for p in Document(f).paragraphs if p.text.strip())
+            import io
+            doc = Document(f)
+            text = chr(10).join(p.text for p in doc.paragraphs if p.text.strip())
+            img_urls = []
+            for rel in doc.part.rels.values():
+                if 'image' in rel.reltype:
+                    try:
+                        img_data = rel.target_part.blob
+                        ext = rel.target_part.content_type.split('/')[-1].replace('jpeg','jpg')
+                        img_name = f.stem + '_' + rel.rId + '.' + ext
+                        url = upload_image(img_data, img_name, rel.target_part.content_type)
+                        if url:
+                            img_urls.append(url)
+                            print('  image:', img_name)
+                    except: pass
+            if img_urls:
+                text += chr(10) + chr(10) + 'תמונות:' + chr(10) + chr(10).join(img_urls)
+            return text
         if n.endswith('.pdf'):
             import PyPDF2
             with open(f, 'rb') as fp:
