@@ -1,4 +1,4 @@
-import os, requests
+import os, requests, zipfile
 from pathlib import Path
 
 SB_URL = os.environ['SUPABASE_URL']
@@ -28,27 +28,31 @@ def read(f):
             doc = Document(f)
             text = chr(10).join(p.text for p in doc.paragraphs if p.text.strip())
             img_urls = []
-            for rel in doc.part.rels.values():
-                if 'image' in rel.reltype:
+            # קרא תמונות ישירות מה-zip
+            with zipfile.ZipFile(f) as z:
+                media_files = [m for m in z.namelist() if m.startswith('word/media/')]
+                for media_path in media_files:
                     try:
-                        img_data = rel.target_part.blob
-                        ext = rel.target_part.content_type.split('/')[-1].replace('jpeg','jpg')
-                        img_name = f.stem + '_' + rel.rId + '.' + ext
-                        url = upload_image(img_data, img_name, rel.target_part.content_type)
+                        ext = media_path.split('.')[-1].lower()
+                        mime = 'image/jpeg' if ext in ('jpg','jpeg') else 'image/' + ext
+                        img_data = z.read(media_path)
+                        img_name = f.stem + '_' + media_path.split('/')[-1]
+                        url = upload_image(img_data, img_name, mime)
                         if url:
                             img_urls.append(url)
                             print('  image:', img_name)
-                    except: pass
+                    except Exception as e:
+                        print('  img error:', e)
             if img_urls:
                 text += chr(10) + chr(10) + 'תמונות:' + chr(10) + chr(10).join(img_urls)
             return text
 
         if n.endswith('.pdf'):
-            import PyPDF2, fitz
-            text = ''
-            img_urls = []
             try:
+                import fitz
                 pdf = fitz.open(f)
+                text = ''
+                img_urls = []
                 for page_num, page in enumerate(pdf):
                     text += page.get_text() + chr(10)
                     for img_idx, img in enumerate(page.get_images()):
@@ -63,12 +67,13 @@ def read(f):
                                 img_urls.append(url)
                                 print('  image:', img_name)
                         except: pass
+                if img_urls:
+                    text += chr(10) + chr(10) + 'תמונות:' + chr(10) + chr(10).join(img_urls)
+                return text
             except:
+                import PyPDF2
                 with open(f, 'rb') as fp:
-                    text = chr(10).join(p.extract_text() or '' for p in PyPDF2.PdfReader(fp).pages)
-            if img_urls:
-                text += chr(10) + chr(10) + 'תמונות:' + chr(10) + chr(10).join(img_urls)
-            return text
+                    return chr(10).join(p.extract_text() or '' for p in PyPDF2.PdfReader(fp).pages)
 
         if n.endswith(('.txt', '.md', '.json')):
             return f.read_text(encoding='utf-8', errors='ignore')
