@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בוט פריקטים - קומקס</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+#app { width: 420px; height: 620px; background: white; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.12); display: flex; flex-direction: column; overflow: hidden; }
+#header { background: #1a6b3c; color: white; padding: 14px 16px; display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.avatar { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.hname { font-size: 15px; font-weight: 600; }
+.hsub { font-size: 11px; opacity: 0.8; }
+#status-bar { background: #f8f9fa; border-bottom: 1px solid #e9ecef; padding: 5px 14px; font-size: 11px; color: #666; display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: #aaa; flex-shrink: 0; }
+.dot.green { background: #22c55e; }
+.dot.orange { background: #f59e0b; }
+#setup { padding: 12px 14px; background: #f8f9fa; border-bottom: 1px solid #e9ecef; flex-shrink: 0; }
+#setup label { font-size: 11px; color: #666; display: block; margin-bottom: 4px; }
+#setup input { width: 100%; border: 1px solid #ddd; border-radius: 8px; padding: 7px 10px; font-size: 13px; font-family: monospace; margin-bottom: 6px; }
+#setup button { background: #1a6b3c; color: white; border: none; border-radius: 8px; padding: 7px 14px; font-size: 13px; cursor: pointer; }
+#messages { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+.msg { max-width: 82%; padding: 9px 13px; border-radius: 16px; font-size: 13.5px; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+.bot { background: #f0f2f5; color: #111; border-bottom-left-radius: 4px; align-self: flex-start; }
+.user { background: #1a6b3c; color: white; border-bottom-right-radius: 4px; align-self: flex-end; }
+.typing { opacity: 0.5; font-style: italic; }
+#input-area { border-top: 1px solid #e9ecef; padding: 10px 12px; display: flex; gap: 8px; flex-shrink: 0; background: white; }
+#user-input { flex: 1; border: 1px solid #ddd; border-radius: 20px; padding: 8px 14px; font-size: 13.5px; resize: none; outline: none; font-family: inherit; }
+#user-input:focus { border-color: #1a6b3c; }
+#send-btn { width: 36px; height: 36px; border-radius: 50%; background: #1a6b3c; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+#send-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+#send-btn svg { width: 15px; height: 15px; fill: white; }
+#reload-btn { background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.75); font-size: 11px; margin-right: auto; padding: 0; }
+#reload-btn:hover { color: white; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="header">
+    <div class="avatar">🤖</div>
+    <div>
+      <div class="hname">בוט פריקטים</div>
+      <div class="hsub">COMAX · מחלקת ממשקים</div>
+    </div>
+    <button id="reload-btn" onclick="loadDocs()">↻ רענן מסמכים</button>
+  </div>
+  <div id="status-bar"><div class="dot" id="dot"></div><span id="status-txt">ממתין למפתח...</span></div>
+  <div id="setup">
+    <label>מפתח Anthropic API (נשמר בדפדפן)</label>
+    <input type="password" id="key-in" placeholder="sk-ant-api03-..." />
+    <button onclick="saveKey()">שמור ✓</button>
+  </div>
+  <div id="messages">
+    <div class="msg bot">שלום! הכנס מפתח API ואטען את המסמכים מ-GitHub אוטומטית 👋</div>
+  </div>
+  <div id="input-area">
+    <textarea id="user-input" rows="1" placeholder="שאלי שאלה..." disabled
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send()}"
+      oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+    <button id="send-btn" onclick="send()" disabled>
+      <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+<script>
+const REPO = "issers1986/comax-bot";
+const DOCS_PATH = "docs";
+let apiKey = localStorage.getItem("comax_api_key") || "";
+let docsContent = "";
+let history = [];
+
+if (apiKey) {
+  document.getElementById("key-in").value = "••••••••••••";
+  document.getElementById("setup").style.display = "none";
+  setStatus("orange","טוען מסמכים...");
+  loadDocs();
+}
+
+function setStatus(c,t){ document.getElementById("dot").className="dot "+c; document.getElementById("status-txt").textContent=t; }
+
+function saveKey(){
+  const v = document.getElementById("key-in").value.trim();
+  if(!v.startsWith("sk-")){ alert("מפתח לא תקין"); return; }
+  apiKey=v; localStorage.setItem("comax_api_key",v);
+  document.getElementById("setup").style.display="none";
+  setStatus("orange","טוען מסמכים..."); loadDocs();
+}
+
+async function loadDocs(){
+  setStatus("orange","טוען מסמכים מ-GitHub...");
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${DOCS_PATH}`);
+    const files = await res.json();
+    if(!Array.isArray(files)){ setStatus("","שגיאה בקריאת תיקייה"); return; }
+    const relevant = files.filter(f=>f.type==="file" && !f.name.startsWith(".") && f.name!=="README.md" && f.name!=="example.txt");
+    if(relevant.length===0){ setStatus("orange","לא נמצאו מסמכים בתיקייה docs/"); addMsg("bot","לא נמצאו מסמכים. העלה קבצים לתיקייה docs/ ב-GitHub ולחץ רענן."); return; }
+    docsContent="";
+    for(const f of relevant){
+      const r = await fetch(f.download_url);
+      const text = await r.text();
+      docsContent += `\n\n=== ${f.name} ===\n${text}`;
+    }
+    const names = relevant.map(f=>f.name).join(", ");
+    setStatus("green",`${relevant.length} מסמכים טעונים`);
+    document.getElementById("user-input").disabled=false;
+    document.getElementById("send-btn").disabled=false;
+    addMsg("bot",`טענתי ${relevant.length} מסמכים:\n${relevant.map(f=>"• "+f.name).join("\n")}\n\nמה תרצה לדעת?`);
+  } catch(e){ setStatus("","שגיאה: "+e.message); }
+}
+
+function addMsg(role,text){
+  const d=document.createElement("div");
+  d.className="msg "+role; d.textContent=text;
+  const m=document.getElementById("messages");
+  m.appendChild(d); m.scrollTop=m.scrollHeight; return d;
+}
+
+async function send(){
+  const inp=document.getElementById("user-input");
+  const text=inp.value.trim();
+  if(!text||!apiKey) return;
+  inp.value=""; inp.style.height="auto";
+  document.getElementById("send-btn").disabled=true;
+  addMsg("user",text);
+  history.push({role:"user",content:text});
+  const t=addMsg("bot","..."); t.classList.add("typing");
+  try {
+    const sys=`אתה בוט עזרה לצוות מפתחים של Comax API. ענה בעברית, מקצועית וברורה.
+השתמש רק במידע מהמסמכים הבאים. אם אין מידע רלוונטי אמור: "אין לי מידע על כך במסמכים."
+ציין אם פרמטרים הם Mandatory או Optional.
+
+מסמכים:
+${docsContent||"לא נטענו מסמכים."}`;
+    const resp = await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","x-api-key":apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-calls":"true"},
+      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:sys,messages:history})
+    });
+    const data=await resp.json();
+    t.remove();
+    const reply=data.content?.[0]?.text||JSON.stringify(data.error||data);
+    addMsg("bot",reply);
+    history.push({role:"assistant",content:reply});
+  } catch(e){ t.remove(); addMsg("bot","שגיאה: "+e.message); }
+  document.getElementById("send-btn").disabled=false;
+}
+</script>
+</body>
+</html>
